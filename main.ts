@@ -10,6 +10,10 @@ const path = require('path');
 const PORT = 8080;
 const OUT_FILE = path.join(__dirname, 'index.html');
 
+// Copy POST.json to the output dir so the gate can read the post address.
+const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR || '/output';
+try { fs.mkdirSync(OUTPUT_DIR, { recursive: true }); fs.copyFileSync(path.join(__dirname, 'POST.json'), path.join(OUTPUT_DIR, 'POST.json')); } catch (e) { console.error('POST.json copy failed:', e.message); }
+
 const HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
